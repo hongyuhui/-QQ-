@@ -1,0 +1,9 @@
+package com.qq.commom;
+
+public interface MessageType {
+	String message_login_succeed = "1";
+	String message_login_fali="2";
+	String message_common = "3";
+	String message_get_onlineFriends = "4";
+	String message_send_onlineFriends = "5";
+}

@@ -1,0 +1,10 @@
+/**
+ * 管理客户端与服务器保持通讯的线程类
+ */
+package com.qq.client.tools;
+
+import java.util.HashMap;
+
+public class ManageCCST {
+	HashMap<String, ClientConServerThread> hm = new HashMap<String,ClientConServerThread>()
+}

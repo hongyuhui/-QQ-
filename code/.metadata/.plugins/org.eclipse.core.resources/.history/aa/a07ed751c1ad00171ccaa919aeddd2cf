@@ -1,0 +1,45 @@
+/**
+ * 客户端连接服务器的后台
+ */
+package com.qq.client.model;
+
+import java.util.*;
+
+import com.qq.commom.Message;
+
+import java.io.*;
+import java.net.*;
+public class ClientConServer {
+	
+//	public ClientConServer() {
+//		try {
+//			Socket s = new Socket("127.0.0.1",9999);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			// TODO: handle exception
+//		}finally {
+//			
+//		}
+//	}
+	//发送第一次登录请求
+	public boolean sendLoginInfo (Object o) {
+		boolean b = false;
+		try {
+			Socket s = new Socket("127.0.0.1",9999);
+			ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
+			oos.writeObject(o);
+			
+			ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
+			Message ms =(Message)ois.readObject();
+			 
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}finally {
+			return b;
+		}
+
+	}
+	
+}

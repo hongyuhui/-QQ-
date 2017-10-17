@@ -1,0 +1,72 @@
+package com.qq.client.view;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JTabbedPane;
+
+public class login {
+
+	private JFrame frame;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					login window = new login();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public login() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 348, 240);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		JLabel label = new JLabel(" ");
+		label.setIcon(new ImageIcon("/Users/hongyuhui/Documents/山寨qq项目/素材/title.gif"));
+		label.setBounds(0, 0, 348, 48);
+		frame.getContentPane().add(label);
+		
+		JButton button = new JButton("");
+		button.setIcon(new ImageIcon("/Users/hongyuhui/Documents/山寨qq项目/素材/login.gif"));
+		button.setBounds(30, 183, 66, 22);
+		frame.getContentPane().add(button);
+		
+		JButton button_1 = new JButton("");
+		button_1.setIcon(new ImageIcon("/Users/hongyuhui/Documents/山寨qq项目/素材/cancle.gif"));
+		button_1.setBounds(140, 183, 66, 22);
+		frame.getContentPane().add(button_1);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon("/Users/hongyuhui/Documents/山寨qq项目/素材/register.gif"));
+		btnNewButton.setBounds(250, 183, 66, 22);
+		frame.getContentPane().add(btnNewButton);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setToolTipText("qq号码");
+		tabbedPane.setBounds(0, 48, 21, 21);
+		frame.getContentPane().add(tabbedPane);
+	}
+}

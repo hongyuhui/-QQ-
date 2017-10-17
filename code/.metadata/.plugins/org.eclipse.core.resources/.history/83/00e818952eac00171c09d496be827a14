@@ -1,0 +1,105 @@
+package com.qq.client.view;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+import java.awt.BorderLayout;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
+import javax.swing.SwingConstants;
+import java.awt.FlowLayout;
+import javax.swing.JScrollPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.GridLayout;
+
+public class FriendList {
+
+	private JFrame frame;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FriendList window = new FriendList();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public FriendList() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 200, 500);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		
+		JButton button = new JButton("我的好友");
+		frame.getContentPane().add(button, BorderLayout.NORTH);
+		
+		JPanel panel = new JPanel();
+		frame.getContentPane().add(panel, BorderLayout.SOUTH);
+		
+		JButton btnNewButton = new JButton("陌生人");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		panel.setLayout(new GridLayout(2, 1, -2, -5));
+		panel.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("黑名单");
+		panel.add(btnNewButton_1);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		frame.getContentPane().add(scrollPane, BorderLayout.CENTER);
+		
+		JPanel panel_1 = new JPanel();
+		JLabel[] jb1s =new JLabel[50];
+		
+		for(int i=0;i<jb1s.length;i++)
+		{
+			jb1s[i]=new JLabel(i+1+" ");
+			jb1s[i].setIcon(new ImageIcon("/Users/hongyuhui/Documents/山寨qq项目/素材/mm.jpg"));
+			jb1s[i].setHorizontalAlignment(SwingConstants.LEFT);
+			jb1s[i].setEnabled(false);
+			panel_1.add(jb1s[i]);
+			
+			
+		}
+		
+		scrollPane.setViewportView(panel_1);
+		panel_1.setLayout(new GridLayout(50, 1, 4, 4));
+		
+		JPanel panel_2 = new JPanel();
+		frame.getContentPane().add(panel_2, BorderLayout.WEST);
+		frame.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{button, panel}));
+	}
+
+	public static void main(String[] args) {
+		new CardLayout();
+	}
+
+}

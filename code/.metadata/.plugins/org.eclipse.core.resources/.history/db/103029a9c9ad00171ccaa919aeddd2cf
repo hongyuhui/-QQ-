@@ -1,0 +1,8 @@
+/**
+ * qq服务器，进行监听 等待客户端连接
+ */
+package com.qq.server.model;
+
+public class Server {
+
+}

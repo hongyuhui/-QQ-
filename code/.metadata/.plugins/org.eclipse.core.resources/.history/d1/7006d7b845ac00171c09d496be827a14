@@ -1,0 +1,153 @@
+package com.qq.client.view;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+import java.awt.CardLayout;
+import java.awt.Color;
+
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.awt.GridLayout;
+import javax.swing.JScrollPane;
+
+import org.w3c.dom.events.MouseEvent;
+
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
+import java.awt.event.ActionEvent;
+
+public class FriendList1 {
+
+	private JFrame frame;
+	CardLayout cl = new CardLayout();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FriendList1 window = new FriendList1();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public FriendList1() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(1000, 80, 200, 500);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(cl);	
+		
+//		我的好友的界面
+		final JPanel panel = new JPanel();
+		frame.getContentPane().add(panel, "1");
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		JButton button = new JButton("我的好友");		
+		panel.add(button, BorderLayout.NORTH);
+		
+		JPanel panel_1 = new JPanel();
+		panel.add(panel_1, BorderLayout.SOUTH);
+		panel_1.setLayout(new GridLayout(2, 1, 0, 0));
+		
+		JButton button_1 = new JButton("陌生人");
+//		监听 切换到陌生人的界面
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cl.show(frame.getContentPane(), "2");
+			}
+		});
+		panel_1.add(button_1);
+		
+		JButton button_2 = new JButton("黑名单");
+		panel_1.add(button_2);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		panel.add(scrollPane, BorderLayout.CENTER);
+		
+		final JLabel[] jb1s =new JLabel[50];
+		JPanel panel_2 = new JPanel();
+		
+		for(int i=0;i<jb1s.length;i++)
+		{
+			jb1s[i]=new JLabel(i+1+"",new ImageIcon("image/mm.jpg"),JLabel.LEFT);
+			panel_2.add(jb1s[i]);
+			jb1s[i].addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(java.awt.event.MouseEvent e) {
+					// TODO Auto-generated method stub
+					super.mouseEntered(e);
+					jb1s[i].setForeground(Color.BLUE);
+				}
+			});
+		}
+		
+		panel_2.setLayout(new GridLayout(50, 1, 0, 0));
+		scrollPane.setViewportView(panel_2);
+				
+		
+//		陌生人的界面
+		JPanel panel_3 = new JPanel();
+		frame.getContentPane().add(panel_3, "2");
+		panel_3.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_4 = new JPanel();
+		panel_3.add(panel_4, BorderLayout.NORTH);
+		panel_4.setLayout(new GridLayout(2, 1, 0, 0));
+		
+		JButton button_3 = new JButton("我的好友");
+//		监听 切换到我的好友的界面
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cl.show(frame.getContentPane(), "1");
+			}
+		});
+		panel_4.add(button_3);
+		
+		JButton button_4 = new JButton("陌生人");
+		panel_4.add(button_4);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		panel_3.add(scrollPane_1, BorderLayout.CENTER);
+		
+		JLabel []jb1s2=new JLabel[20];
+		
+		JPanel panel_5 = new JPanel();
+		for(int i=0;i<jb1s2.length;i++)
+		{
+			jb1s2[i]=new JLabel(i+1+"",new ImageIcon("image/mm.jpg"),JLabel.LEFT);
+			panel_5.add(jb1s2[i]);
+		}
+		scrollPane_1.setViewportView(panel_5);
+		panel_5.setLayout(new GridLayout(20, 1, 0, 0));
+		
+		JButton button_5 = new JButton("黑名单");
+		panel_3.add(button_5, BorderLayout.SOUTH);
+		
+		
+		
+	}
+
+}

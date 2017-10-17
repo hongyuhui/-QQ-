@@ -1,0 +1,11 @@
+package com.qq.server.view;
+
+public class test {
+public static void main(String[] args) {
+	String s1  = new String("jj");
+	String s2  = new String("jj");
+	
+	System.out.println(s1==s2);
+	System.out.println(s1.equals(s2));
+}
+}

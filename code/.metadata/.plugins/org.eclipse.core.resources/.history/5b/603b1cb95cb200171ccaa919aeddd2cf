@@ -1,0 +1,185 @@
+package com.qq.client.view;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JTabbedPane;
+import javax.swing.JPanel;
+import java.awt.FlowLayout;
+import javax.swing.JTextField;
+
+import com.qq.client.model.ClientUser;
+import com.qq.client.tools.ManageCCST;
+import com.qq.client.tools.ManageFriendList;
+import com.qq.commom.Message;
+import com.qq.commom.MessageType;
+import com.qq.commom.User;
+
+import javax.swing.JPasswordField;
+import javax.swing.JCheckBox;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
+
+public class login {
+
+	private JFrame frame;
+	private JTextField userid;
+	private JPasswordField password;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					login window = new login();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public login() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 348, 240);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		
+		JLabel label = new JLabel(" ");
+		label.setIcon(new ImageIcon("/Users/hongyuhui/Documents/山寨qq项目/素材/title.gif"));
+		label.setBounds(0, 0, 348, 48);
+		frame.getContentPane().add(label);
+		//登录监听事件  判断登录是否成功
+		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ClientUser cu = new ClientUser();
+				User user = new User();
+				user.setUserId(userid.getText().trim());
+				user.setPasswd(new String(password.getPassword()));
+				if(cu.checkUser(user)) {
+					//登录成功 发送请求返回在线好友的包
+					try {
+						ObjectOutputStream oos = new ObjectOutputStream
+								(ManageCCST.getClientConServerThread(user.getUserId()).getS().getOutputStream());
+						
+						Message m = new Message();
+						m.setMessType(MessageType.message_get_onlineFriends);
+						m.setSender(user.getUserId());
+						oos.writeObject(m);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					
+					FriendList1 window = new FriendList1(user.getUserId());
+					ManageFriendList.addFriendList(user.getUserId().trim(), window);
+					window.frame.setVisible(true);
+					frame.dispose();
+				}else {
+					JOptionPane.showMessageDialog(null, "用户名账号或密码错误！");
+				}
+ 			}
+		});
+		button.setIcon(new ImageIcon("/Users/hongyuhui/Documents/山寨qq项目/素材/login.gif"));
+		button.setBounds(30, 183, 66, 25);
+		frame.getContentPane().add(button);
+		
+		JButton button_1 = new JButton("");
+		button_1.setIcon(new ImageIcon("/Users/hongyuhui/Documents/山寨qq项目/素材/cancle.gif"));
+		button_1.setBounds(142, 183, 66, 25);
+		frame.getContentPane().add(button_1);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon("/Users/hongyuhui/Documents/山寨qq项目/素材/register.gif"));
+		btnNewButton.setBounds(250, 183, 66, 25);
+		frame.getContentPane().add(btnNewButton);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(0, 48, 348, 145);
+		frame.getContentPane().add(tabbedPane);
+		
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("qq号码", null, panel, null);
+		tabbedPane.setEnabledAt(0, true);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("账 号：");
+		lblNewLabel.setBounds(10, 6, 48, 16);
+		panel.add(lblNewLabel);
+		
+		JLabel label_1 = new JLabel("密 码：");
+		label_1.setBounds(10, 38, 48, 16);
+		panel.add(label_1);
+		
+		userid = new JTextField();
+		userid.setBounds(70, 1, 143, 26);
+		panel.add(userid);
+		userid.setColumns(10);
+		
+		password = new JPasswordField();
+		password.setBounds(70, 33, 143, 26);
+		panel.add(password);
+		
+		JCheckBox checkBox = new JCheckBox("隐身登录");
+		checkBox.setBounds(20, 66, 89, 23);
+		panel.add(checkBox);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("记住密码");
+		chckbxNewCheckBox.setBounds(129, 66, 102, 23);
+		panel.add(chckbxNewCheckBox);
+		
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_1.setIcon(new ImageIcon("/Users/hongyuhui/Documents/山寨qq项目/素材/clear.gif"));
+		btnNewButton_1.setBounds(241, 1, 66, 26);
+		panel.add(btnNewButton_1);
+		
+		JLabel label_2 = new JLabel("忘记密码");
+		label_2.setForeground(new Color(0, 0, 255));
+		label_2.setBounds(243, 40, 61, 16);
+		panel.add(label_2);
+		
+		JLabel label_3 = new JLabel("申请密码保护");
+		label_3.setForeground(new Color(0, 0, 255));
+		label_3.setBounds(243, 70, 78, 16);
+		panel.add(label_3);
+		
+		JPanel panel_1 = new JPanel();
+		tabbedPane.addTab("手机号码", null, panel_1, null);
+		panel_1.setLayout(null);
+		tabbedPane.setEnabledAt(1, true);
+		
+		JPanel panel_2 = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel_2.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
+		flowLayout.setAlignOnBaseline(true);
+		tabbedPane.addTab("电子邮箱", null, panel_2, null);
+		tabbedPane.setEnabledAt(2, true);
+	}
+}

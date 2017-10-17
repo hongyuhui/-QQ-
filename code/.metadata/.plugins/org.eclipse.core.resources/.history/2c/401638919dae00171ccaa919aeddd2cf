@@ -1,0 +1,55 @@
+/**
+ * 与好友聊天的界面
+ */
+package com.qq.client.view;
+
+import javax.swing.JFrame;
+
+import com.qq.commom.Message;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+public class Chat1 extends JFrame implements ActionListener{
+	JTextArea jta;
+	JTextField jtf;
+	JButton jb;
+	JPanel jp;
+	String ownid;
+	String friendid;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+//		Chat1 chat = new Chat1("ss");
+	}
+	public  Chat1(String ownid,String friend) {
+		this.ownid=ownid;
+		this.friendid = friend;
+		
+		jta = new JTextArea();
+		jtf = new JTextField(20);
+		jb = new JButton("发送");
+		jp = new JPanel();
+		jp.add(jtf);
+		jp.add(jb);
+		
+		this.add(jta);
+		this.add(jp,"South");
+		this.setSize(400,300);
+		this.setTitle(ownid+"正在和"+friend+"聊天");
+		this.setIconImage((new ImageIcon("../image/mm.gif").getImage()));
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
+		
+		
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==jb) {
+			Message m = new Message();
+			m.setSender(ownid);
+			m.setGetter(friendid);
+			m.setCon(jtf.getText());
+		}
+	}
+}

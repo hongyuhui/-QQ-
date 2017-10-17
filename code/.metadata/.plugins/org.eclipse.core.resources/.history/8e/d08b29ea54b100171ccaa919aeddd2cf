@@ -1,0 +1,9 @@
+package com.qq.client.tools;
+
+import java.util.HashMap;
+
+import com.qq.client.view.Chat1;
+
+public class ManageChat {
+	private static HashMap<String, Chat1> hm = new HashMap<String, Chat1>();
+}

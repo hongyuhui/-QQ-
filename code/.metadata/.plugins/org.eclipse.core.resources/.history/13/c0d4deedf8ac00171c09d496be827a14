@@ -1,0 +1,19 @@
+/**
+ * 与好友聊天的界面
+ */
+package com.qq.client.view;
+
+import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+public class Chat1 extends JFrame{
+	
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

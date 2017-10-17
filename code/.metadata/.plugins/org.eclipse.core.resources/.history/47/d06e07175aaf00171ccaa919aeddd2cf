@@ -1,0 +1,7 @@
+package com.qq.server.model;
+
+import java.util.HashMap;
+
+public class ManageClientThread {
+	public static HashMap hm = new HashMap<String,SerConClientThread >();
+}

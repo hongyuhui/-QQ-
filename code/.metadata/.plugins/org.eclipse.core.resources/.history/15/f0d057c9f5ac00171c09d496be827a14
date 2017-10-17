@@ -1,0 +1,68 @@
+package com.qq.client.view;
+
+import java.awt.EventQueue;
+import java.awt.Image;
+
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+
+public class Chat {
+
+	private JFrame frame;
+	private JTextField textField;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Chat window = new Chat();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public Chat() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+//		frame.setIconImage(new ImageIcon());
+		
+		textField = new JTextField();
+		textField.setBounds(35, 223, 280, 35);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
+		
+		JButton button = new JButton("发 送");
+		button.setBounds(327, 224, 87, 35);
+		frame.getContentPane().add(button);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(36, 19, 378, 181);
+		frame.getContentPane().add(scrollPane);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setLineWrap(true); //自动换行
+		scrollPane.setViewportView(textArea);
+	}
+}

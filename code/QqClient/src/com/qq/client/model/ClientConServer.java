@@ -1,0 +1,53 @@
+/**
+ * 客户端连接服务器的后台
+ */
+package com.qq.client.model;
+
+import com.qq.client.tools.ClientConServerThread;
+import com.qq.client.tools.ManageCCST;
+import com.qq.commom.Message;
+import com.qq.commom.User;
+
+import java.io.*;
+import java.net.*;
+public class ClientConServer {
+	
+	public  Socket s;
+	
+		public Socket getS() {
+		return s;
+	}
+
+	public void setS(Socket s) {
+		this.s = s;
+	}
+
+	//发送第一次登录请求
+	public boolean sendLoginInfo (Object o) {
+		boolean b = false;
+		try {
+			s = new Socket("127.0.0.1",9999);
+			ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
+			oos.writeObject(o);
+			
+			ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
+			Message ms =(Message)ois.readObject();
+			//验证用户登录
+			if(ms.getMessType().equals("1")) {
+				
+			//如果消息类型为"1" 则登录成功；同时创建一个客户端与服务器保持连接的线程
+				ClientConServerThread ccst = new ClientConServerThread(s);
+				ManageCCST.addClientConServerThread(((User)o).getUserId(), ccst);
+				ccst.start();
+				b = true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}finally {
+		}
+		return b;
+	}
+	
+}

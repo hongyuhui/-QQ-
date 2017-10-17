@@ -1,0 +1,7 @@
+package com.qq.client.tools;
+
+import java.util.HashMap;
+
+public class ManageFriendList {
+	private static HashMap hm = new HashMap<String,FriendList1>()
+}

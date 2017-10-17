@@ -1,0 +1,93 @@
+/**
+ * 与好友聊天的界面
+ */
+package com.qq.client.view;
+
+import javax.swing.JFrame;
+
+import com.qq.client.model.ClientConServer;
+import com.qq.commom.Message;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Date;
+public class Chat1 extends JFrame implements ActionListener , Runnable{
+	JTextArea jta;
+	JTextField jtf;
+	JButton jb;
+	JPanel jp;
+	String ownid;
+	String friendid;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+//		Chat1 chat = new Chat1("ss");
+	}
+	public  Chat1(String ownid,String friend) {
+		this.ownid=ownid;
+		this.friendid = friend;
+		
+		jta = new JTextArea();
+		jtf = new JTextField(20);
+		jb = new JButton("发送");
+		jb.addActionListener(this);
+		jp = new JPanel();
+		jp.add(jtf);
+		jp.add(jb);
+		
+		this.add(jta);
+		this.add(jp,"South");
+		this.setSize(400,300);
+		this.setTitle(ownid+"正在和"+friend+"聊天");
+		this.setIconImage((new ImageIcon("../image/mm.gif").getImage()));
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
+		
+		
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==jb) {
+			Message m = new Message();
+			m.setSender(ownid);
+			m.setGetter(friendid);
+			m.setCon(jtf.getText());
+			m.setSendTime(new Date().toString());
+			String info = m.getSendTime()+"  "+m.getSender()+" 对 "+m.getGetter()+" 说: "+"/r/n"+m.getCon()+"/r/n"; 
+			this.jta.append(info);
+			try {
+				ObjectOutputStream oos = new ObjectOutputStream(ClientConServer.s.getOutputStream());
+				oos.writeObject(m);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while (true) {
+			try {
+				//读取信息
+				ObjectInputStream ois = new ObjectInputStream(ClientConServer.s.getInputStream());
+				Message m = (Message) ois.readObject();
+				//显示信息
+				String info = m.getSendTime()+"  "+m.getSender()+" 对 "+m.getGetter()+" 说: "+"/r/n"+m.getCon()+"/r/n";
+				this.jta.append(info);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
+}
